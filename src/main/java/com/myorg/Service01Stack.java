@@ -28,7 +28,7 @@ public class Service01Stack extends Stack {
                 .taskImageOptions(
                         ApplicationLoadBalancedTaskImageOptions.builder()
                                 .containerName("aws-project01")
-                                .image(ContainerImage.fromRegistry("israeldev/curso-aws:1.0.0"))
+                                .image(ContainerImage.fromRegistry("israeldev/curso-aws:1.0.1"))
                                 .containerPort(8080)
                                 .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                         .logGroup(LogGroup.Builder.create(this, "Service01LogGroup")
@@ -42,7 +42,7 @@ public class Service01Stack extends Stack {
                 .build();
 
         service01.getTargetGroup().configureHealthCheck( HealthCheck.builder()
-                .path("actuator/health")
+                .path("/actuator/health")
                 .port("8080")
                 .healthyHttpCodes("200")
                 .build());
