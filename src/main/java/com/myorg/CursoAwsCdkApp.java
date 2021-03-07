@@ -1,6 +1,7 @@
 package com.myorg;
 
 import software.amazon.awscdk.core.App;
+import software.amazon.awscdk.core.Stack;
 
 import java.util.Arrays;
 
@@ -8,8 +9,9 @@ public class CursoAwsCdkApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new CursoAwsCdkStack(app, "CursoAwsCdkStack");
-
+        VpcStack vpc = new VpcStack(app, "Vpc");
+        ClusterStack cluster = new ClusterStack(app, "Cluster", vpc.getVpc());
+        cluster.addDependency(vpc);
         app.synth();
     }
 }
